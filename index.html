@@ -1,31 +1,53 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+  <!-- favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- style -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
   <!-- moment -->
   <script src="https://momentjs.com/downloads/moment-with-locales.js" charset="utf-8"></script>
-
   <!-- jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
   <!-- handlebars -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.2/handlebars.min.js" integrity="sha256-MlbTFXdOM7EZphnz0OyXQqPt2zBOjfRXCq14CfgSsS0=" crossorigin="anonymous"></script>
-
-  <!-- nostro style -->
-  <link rel="stylesheet" href="style.css">
-
   <title>Boolflix</title>
 </head>
 <body>
+  <div class="container_row">
+    <div class="head_row">
+      <h1>BOOLFLIX</h1>
+      <div class="search-bar">
+        <img id="query-button" type="button" name="button" src="img/search_icon.svg" alt="icon search" class="img_search">
+        <input id="query" type="text" name="" value="" placeholder="Cerca un film, serie tv..." autocomplete="off">
+      </div>
+  </div>
+  <!-- Risultati film -->
+  <ul class="films"></ul>
+  <!-- Risultati serie tv -->
+  <ul class="tvs"></ul>
 
-
-  <script id="entry-template" type="text/x-handlebars-template">
-      
+  <!-- hendelbars template-->
+  <script id="film-template" type="text/x-handlebars-template">
+    <li>
+      <span>Titolo:</span>{{title}}
+      <ul>
+        <li>{{{poster}}}</li>
+        <li>{{type}}</li>
+        <li><span>Titolo Originale:</span>{{original_title}}</li>
+        <li><span>Lingua titolo:</span>{{{original_language}}}</li>
+        <li><span>Voto:</span>{{{vote_average}}}</li>
+      </ul>
+    </li>
   </script>
-  <script src="script.js"></script>
+  <script id="noresult-template" type="text/x-handlebars-template">
+    <li>Non ci sono risultati</li>
+  </script>
+  <script src="js/script.js"></script>
 </body>
 </html>
