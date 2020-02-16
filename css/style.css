@@ -30,6 +30,12 @@ h1 {
 }
 
 .search-bar {
+  border: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+}
+.search-bar.active {
   border: 1px solid white;
   display: flex;
   align-items: center;
@@ -43,6 +49,17 @@ h1 {
 }
 
 #query {
+  border: 0;
+  width: 0px;
+  height: 0px;
+  outline: none;
+  font-size: 14px;
+  transition: all .5s ease-in-out;
+  background: transparent;
+  color: white;
+  margin-left: 5px;
+}
+#query.active {
   border: 0;
   width: 270px;
   height: 35px;
@@ -61,6 +78,11 @@ h1 {
 
 li {
   list-style: none;
+}
+
+li img {
+  width: 185px;
+  height: 287px;
 }
 
 #film-template , span {

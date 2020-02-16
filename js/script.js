@@ -1,26 +1,23 @@
 //api_key
 // b9cd166635b627d3a7e76d98d93af973
 
-
 $(document).ready(function () {
   $('#query-button').click(function() {
     var query = $('#query').val();
     search();
   });
-  $('#query').keypress(function (event) {
+  $('#query').keyup(function (event) {
     if(event.which == 13) {
       search();
-      var num = keyBoard();
     }
   })
 });
 
-function keyBoard () {
-  arrayKey = [];
-  for (var i = 0; i < 100; i++) {
-    console.log(arrayKey);
-  }
-}
+$(document).on('click', '.search-bar', function(){
+  $('#query').toggleClass('active');
+  $('.search-bar').toggleClass('active');
+  $('#query').focus();
+});
 
 function search() {
   var query = $('#query').val();
@@ -120,7 +117,7 @@ function printResult(type, results){
     var urlBaseImage = 'https://image.tmdb.org/t/p/w185';
 
     if(thisResult.poster_path == null) {
-      posterImage = '<img src="img/default-poster.png" alt="'+ title +'">'
+      posterImage = '<img src="img/default-poster.jpg" alt="'+ title +'">'
     } else {
         posterImage = '<img src="' + urlBaseImage + thisResult.poster_path + '" alt="'+ title +'">'
     }
