@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,46 +8,92 @@
   <link rel="shortcut icon" href="img/favicon.ico">
   <!-- style -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- bootstrap 4 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- toastify -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <!-- swiper -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
   <!-- font awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
   <!-- moment -->
   <script src="https://momentjs.com/downloads/moment-with-locales.js" charset="utf-8"></script>
   <!-- jquery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <!-- handlebars -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.2/handlebars.min.js" integrity="sha256-MlbTFXdOM7EZphnz0OyXQqPt2zBOjfRXCq14CfgSsS0=" crossorigin="anonymous"></script>
   <title>Boolflix</title>
 </head>
 <body>
+
   <div class="container_row">
     <div class="head_row">
       <h1>BOOLFLIX</h1>
       <div class="search-bar">
         <img id="query-button" type="button" name="button" src="img/search_icon.svg" alt="icon search" class="img_search">
-        <input class="" id="query" type="text" name="" value="" placeholder="Cerca un film, serie tv..." autocomplete="off">
+        <input id="query" type="text" autocomplete="off" placeholder="Cerca un film, serie tv...">
       </div>
   </div>
-  <!-- Risultati film -->
-  <ul class="films"></ul>
-  <!-- Risultati serie tv -->
-  <ul class="tvs"></ul>
+
+  <div class="container-fluid">
+
+    <!-- Slider main container
+    <div class="swiper-container">
+      <!-- Additional required wrapper -->
+      <!-- <div class="swiper-wrapper"> -->
+        <!-- Slides -->
+        <!-- <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+        ...
+      </div> -->
+      <!-- If we need pagination -->
+      <!-- <div class="swiper-pagination swiper-pagination-white">SLIDE 4</div> -->
+    
+      <!-- If we need navigation buttons -->
+      <!-- <div class="swiper-button-prev">prev</div>
+      <div class="swiper-button-next">next</div> -->
+    
+      <!-- If we need scrollbar -->
+      <!-- <div class="swiper-scrollbar">scrol</div>
+    </div> -->
+
+    <!-- Risultati film -->
+    <div class="row films">
+      
+    </div>
+
+    <!-- Risultati serie tv -->
+    <div class="row tvs">
+      
+    </div>
+  </div> 
 
   <!-- hendelbars template-->
   <script id="film-template" type="text/x-handlebars-template">
-    <li>
-      <span>Titolo:</span>{{title}}
-      <ul>
-        <li>{{{poster}}}</li>
-        <li>{{type}}</li>
-        <li><span>Titolo Originale:</span>{{original_title}}</li>
-        <li><span>Lingua titolo:</span>{{{original_language}}}</li>
-        <li><span>Voto:</span>{{{vote_average}}}</li>
-      </ul>
-    </li>
+    <div class="col-12 col-sm-8 col-md-4 col-lg-2">
+      <!-- Risultati film -->
+      <div class="film_tv">
+        <div class="box-img">
+          <img class="" src="{{{poster}}}" alt="{{title}}">
+        </div>
+        <span>Titolo:</span>{{title}}
+        <div>{{type}}</div>
+        <div><span>Titolo Originale:</span>{{original_title}}</div>
+        <div><span>lingua titolo:</span>{{{original_language}}}</div>
+        <div><span>Voto:</span>{{{vote_average}}}</div>
+      </div>
+    </div>
   </script>
-  <script id="noresult-template" type="text/x-handlebars-template">
-    <li>Non ci sono risultati</li>
-  </script>
+
+  <!-- Attivare questo se si vuole stampare i dati non disponibili con Handlebars -->
+  <!-- <script id="noresult-template" type="text/x-handlebars-template">
+    <h1>Non ci sono risultati</h1>
+  </script> -->
+
   <script src="js/script.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="https://unpkg.com/swiper/js/swiper.js"></script>
 </body>
 </html>

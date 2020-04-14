@@ -1,22 +1,24 @@
 //api_key
 // b9cd166635b627d3a7e76d98d93af973
 
+// Ricerca e refresh ad ogni tasto della tastiera
 $(document).ready(function () {
-  $('#query-button').click(function() {
-    var query = $('#query').val();
+  $("#query").keyup(function () {
     search();
-  });
-  $('#query').keyup(function (event) {
-    if(event.which == 13) {
-      search();
-    }
   })
-});
+  // Effetto comparsa/scomparsa barra ricerca
+  $(document).on('click', '.search-bar', function(){
+    $('#query').toggleClass('active');
+    $('.search-bar').toggleClass('active');
+    $('#query').focus();
+  });
 
-$(document).on('click', '.search-bar', function(){
-  $('#query').toggleClass('active');
-  $('.search-bar').toggleClass('active');
-  $('#query').focus();
+  // effetto slide
+  var mySwiper = new Swiper('.swiper-container', {
+    // Optional parameters
+    direction: 'vertical',
+    loop: true
+  })
 });
 
 function search() {
@@ -39,7 +41,6 @@ function search() {
 function resetSearch() {
   $('.films').html('');
   $('.tvs').html('');
-  $('#query').val('');
 }
 
 function getData(string, api_key, url, type, container) {
@@ -52,13 +53,33 @@ function getData(string, api_key, url, type, container) {
       language: 'it-IT'
     },
     success: function(data) {
+      var film = $('.films').html();
+      var tv = $('.tvs').val();
       //controllo che ci siano risultati
       if(data.total_results > 0) {
         var results = data.results;
         printResult(type, results);
-      } else {
-        printNoResult($(container));
+      } else if ((film == 0)) {
+        Toastify({
+          text: "Nessun film trovato",
+          duration: 1500,
+          gravity: "bottom",
+          position: 'right',
+          backgroundColor: "linear-gradient(147deg, #FF0000 10%, #FF2525 60%)",
+        }).showToast();
+      } else if (tv == 0) {
+        Toastify({
+          text: "Nessuna serie tv trovata",
+          duration: 1500,
+          gravity: "bottom",
+          position: 'right',
+          backgroundColor: "linear-gradient(147deg, #FF0000 10%, #FF2525 60%)",
+        }).showToast();
       }
+        // Attivare questo se si vuole stampare i dati non disponibili con Handlebars
+      // else {
+      //   printNoResult($(container));
+      // }
     },
     error: function (request, state, errors) {
       console.log(errors);
@@ -91,12 +112,12 @@ function printLanguage (string) {
     'ru',
   ];
   if (availableLangs.includes(string)) {
-    string = '<img class="lang" src="img/flag/' + string + '.svg" alt="en">';
+    string = '<img class="lang" src="img/flag/' + string + '.svg" alt="'+ string + '">';
   }
   return string;
 }
 
-// Stampare Risultati film e serie tv
+// Stampare Risultati film e serie tv con Handlebars
 function printResult(type, results){
   var source = $('#film-template').html();
   var template = Handlebars.compile(source);
@@ -114,12 +135,12 @@ function printResult(type, results){
       var container = $('.tvs');
     }
     var posterImage;
-    var urlBaseImage = 'https://image.tmdb.org/t/p/w185';
+    var urlBaseImage = 'https://image.tmdb.org/t/p/w342';
 
     if(thisResult.poster_path == null) {
-      posterImage = '<img src="img/default-poster.jpg" alt="'+ title +'">'
+      posterImage = 'img/nessunacopertina.jpg'
     } else {
-        posterImage = '<img src="' + urlBaseImage + thisResult.poster_path + '" alt="'+ title +'">'
+        posterImage =  urlBaseImage + thisResult.poster_path
     }
 
     var context = {
@@ -135,6 +156,7 @@ function printResult(type, results){
   }
 }
 
+// Funzione per stampare i dati non disponibili con Handlebars
 function printNoResult (container) {
   var source = $('#noresult-template').html();
   var template = Handlebars.compile(source);
